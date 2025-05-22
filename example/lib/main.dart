@@ -2,22 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_nice_toast/flutter_nice_toast.dart';
 
 void main() {
-  // Initialize NiceToast globally at app startup
-  final navigatorKey = NiceToast.init();
-
-  runApp(MyApp(navigatorKey: navigatorKey));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final GlobalKey<NavigatorState> navigatorKey;
-
-  const MyApp({super.key, required this.navigatorKey});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Set the navigator key to enable context-free toast display
-      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Nice Toast Demo',
       theme: ThemeData(
@@ -187,6 +180,7 @@ class _ToastDemoPageState extends State<ToastDemoPage> with SingleTickerProvider
                 onPressed: () {
                   if (_persistent) {
                     NiceToast.successPersistent(
+                      context: context,
                       message: 'Operation completed successfully!',
                       title: 'Success',
                       position: _position,
@@ -194,6 +188,7 @@ class _ToastDemoPageState extends State<ToastDemoPage> with SingleTickerProvider
                     );
                   } else {
                     NiceToast.success(
+                      context: context,
                       message: 'Operation completed successfully!',
                       title: 'Success',
                       position: _position,
@@ -219,6 +214,7 @@ class _ToastDemoPageState extends State<ToastDemoPage> with SingleTickerProvider
                 onPressed: () {
                   if (_persistent) {
                     NiceToast.errorPersistent(
+                      context: context,
                       message: 'An error occurred! Please try again.',
                       title: 'Error',
                       position: _position,
@@ -226,6 +222,7 @@ class _ToastDemoPageState extends State<ToastDemoPage> with SingleTickerProvider
                     );
                   } else {
                     NiceToast.error(
+                      context: context,
                       message: 'An error occurred! Please try again.',
                       title: 'Error',
                       position: _position,
@@ -245,6 +242,7 @@ class _ToastDemoPageState extends State<ToastDemoPage> with SingleTickerProvider
                 onPressed: () {
                   if (_persistent) {
                     NiceToast.warningPersistent(
+                      context: context,
                       message: 'Please proceed with caution!',
                       title: 'Warning',
                       position: _position,
@@ -252,6 +250,7 @@ class _ToastDemoPageState extends State<ToastDemoPage> with SingleTickerProvider
                     );
                   } else {
                     NiceToast.warning(
+                      context: context,
                       message: 'Please proceed with caution!',
                       title: 'Warning',
                       position: _position,
@@ -271,6 +270,7 @@ class _ToastDemoPageState extends State<ToastDemoPage> with SingleTickerProvider
                 onPressed: () {
                   if (_persistent) {
                     NiceToast.infoPersistent(
+                      context: context,
                       message: 'The system will be updated tomorrow at 2 PM.',
                       title: 'Information',
                       position: _position,
@@ -278,6 +278,7 @@ class _ToastDemoPageState extends State<ToastDemoPage> with SingleTickerProvider
                     );
                   } else {
                     NiceToast.info(
+                      context: context,
                       message: 'The system will be updated tomorrow at 2 PM.',
                       title: 'Information',
                       position: _position,
@@ -317,6 +318,7 @@ class _ToastDemoPageState extends State<ToastDemoPage> with SingleTickerProvider
                   );
 
                   NiceToast.custom(
+                    context: context,
                     message: 'This is a completely custom toast!',
                     title: 'Custom Toast',
                     theme: customTheme,

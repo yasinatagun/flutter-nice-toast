@@ -1,6 +1,6 @@
 # Flutter Nice Toast
 
-A beautiful and highly customizable toast notification package for Flutter with animations and various predefined styles. Shows toasts without requiring BuildContext.
+A beautiful and highly customizable toast notification package for Flutter with animations and various predefined styles.
 
 ## Features
 
@@ -10,7 +10,6 @@ A beautiful and highly customizable toast notification package for Flutter with 
 - 📱 **Flexible Positioning**: Display toasts at the top, center, or bottom of the screen
 - 🖱️ **Interactive**: Support for dismissal by swipe, tap callbacks, and persistent toasts
 - ⚡ **Simple API**: Clean, intuitive API for easy implementation
-- 🧩 **No Context Required**: Display toasts from anywhere in your app without BuildContext
 
 ## Installation
 
@@ -35,60 +34,35 @@ Import the package:
 import 'package:flutter_nice_toast/flutter_nice_toast.dart';
 ```
 
-### Setup
-
-First, initialize the toast system in your app's entry point and add the navigator key to your MaterialApp:
-
-```dart
-void main() {
-  // Initialize NiceToast and get the navigator key
-  final navigatorKey = NiceToast.init();
-  
-  runApp(MyApp(navigatorKey: navigatorKey));
-}
-
-class MyApp extends StatelessWidget {
-  final GlobalKey<NavigatorState> navigatorKey;
-  
-  const MyApp({super.key, required this.navigatorKey});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      // Set the navigator key to enable context-free toast display
-      navigatorKey: navigatorKey,
-      home: HomePage(),
-      // Other app configurations...
-    );
-  }
-}
-```
-
 ### Basic Usage
 
-Show predefined toast notifications from anywhere in your app without BuildContext:
+Show predefined toast notifications:
 
 ```dart
 // Show an error toast
 NiceToast.error(
+  context: context,
   message: "An error occurred!",
   title: "Error", // Optional
 );
 
 // Show a success toast
 NiceToast.success(
+  context: context,
   message: "Operation completed successfully!",
   title: "Success", // Optional
 );
 
 // Show a warning toast
 NiceToast.warning(
+  context: context,
   message: "Please proceed with caution!",
   title: "Warning", // Optional
 );
 
 // Show an info toast
 NiceToast.info(
+  context: context,
   message: "System will be updated tomorrow.",
   title: "Information", // Optional
 );
@@ -100,6 +74,7 @@ All toast types support these customization options:
 
 ```dart
 NiceToast.success(
+  context: context,
   message: "Operation completed successfully!",
   title: "Success",
   position: ToastPosition.top, // top (default), center, or bottom
@@ -121,6 +96,7 @@ Display toasts that don't auto-dismiss and require user action to close:
 
 ```dart
 NiceToast.errorPersistent(
+  context: context,
   message: "This error requires your attention!",
   title: "Critical Error",
 );
@@ -150,6 +126,7 @@ final customTheme = ToastTheme(
 );
 
 NiceToast.custom(
+  context: context,
   message: "This is a completely custom toast!",
   title: "Custom Toast",
   theme: customTheme,

@@ -1,19 +1,12 @@
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 import 'toast_position.dart';
 import 'toast_theme.dart';
-
-/// Global key to access navigator and overlay states without context
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 /// A highly customizable toast notification widget for Flutter applications.
 ///
 /// NiceToast provides elegant, animated toast notifications with various
 /// styles (success, error, warning, info) and customization options.
-/// It uses a no-context approach to show toasts from anywhere in your app.
 class NiceToast {
   // Private constructor to prevent instantiation
   NiceToast._();
@@ -22,16 +15,10 @@ class NiceToast {
   static OverlayEntry? _currentEntry;
   static bool _isVisible = false;
   static AnimationController? _animationController;
-  static final GlobalKey _overlayKey = GlobalKey();
-
-  /// Initialize the toast system with a global navigator key
-  /// Call this in your main.dart when creating the MaterialApp
-  static GlobalKey<NavigatorState> init() {
-    return navigatorKey;
-  }
 
   /// Display an error toast notification
   static void error({
+    required BuildContext context,
     required String message,
     String? title,
     Duration duration = const Duration(seconds: 5),
@@ -42,6 +29,7 @@ class NiceToast {
     VoidCallback? onTap,
   }) {
     _show(
+      context: context,
       message: message,
       title: title,
       theme: ToastTheme.error(),
@@ -56,6 +44,7 @@ class NiceToast {
 
   /// Display a warning toast notification
   static void warning({
+    required BuildContext context,
     required String message,
     String? title,
     Duration duration = const Duration(seconds: 5),
@@ -66,6 +55,7 @@ class NiceToast {
     VoidCallback? onTap,
   }) {
     _show(
+      context: context,
       message: message,
       title: title,
       theme: ToastTheme.warning(),
@@ -80,6 +70,7 @@ class NiceToast {
 
   /// Display a success toast notification
   static void success({
+    required BuildContext context,
     required String message,
     String? title,
     Duration duration = const Duration(seconds: 5),
@@ -90,6 +81,7 @@ class NiceToast {
     VoidCallback? onTap,
   }) {
     _show(
+      context: context,
       message: message,
       title: title,
       theme: ToastTheme.success(),
@@ -104,6 +96,7 @@ class NiceToast {
 
   /// Display an info toast notification
   static void info({
+    required BuildContext context,
     required String message,
     String? title,
     Duration duration = const Duration(seconds: 5),
@@ -114,6 +107,7 @@ class NiceToast {
     VoidCallback? onTap,
   }) {
     _show(
+      context: context,
       message: message,
       title: title,
       theme: ToastTheme.info(),
@@ -128,6 +122,7 @@ class NiceToast {
 
   /// Display a persistent error toast that requires manual dismissal
   static void errorPersistent({
+    required BuildContext context,
     required String message,
     String? title,
     ToastPosition position = ToastPosition.top,
@@ -136,6 +131,7 @@ class NiceToast {
     VoidCallback? onTap,
   }) {
     _show(
+      context: context,
       message: message,
       title: title,
       theme: ToastTheme.error(),
@@ -150,6 +146,7 @@ class NiceToast {
 
   /// Display a persistent warning toast that requires manual dismissal
   static void warningPersistent({
+    required BuildContext context,
     required String message,
     String? title,
     ToastPosition position = ToastPosition.top,
@@ -158,6 +155,7 @@ class NiceToast {
     VoidCallback? onTap,
   }) {
     _show(
+      context: context,
       message: message,
       title: title,
       theme: ToastTheme.warning(),
@@ -172,6 +170,7 @@ class NiceToast {
 
   /// Display a persistent success toast that requires manual dismissal
   static void successPersistent({
+    required BuildContext context,
     required String message,
     String? title,
     ToastPosition position = ToastPosition.top,
@@ -180,6 +179,7 @@ class NiceToast {
     VoidCallback? onTap,
   }) {
     _show(
+      context: context,
       message: message,
       title: title,
       theme: ToastTheme.success(),
@@ -194,6 +194,7 @@ class NiceToast {
 
   /// Display a persistent info toast that requires manual dismissal
   static void infoPersistent({
+    required BuildContext context,
     required String message,
     String? title,
     ToastPosition position = ToastPosition.top,
@@ -202,6 +203,7 @@ class NiceToast {
     VoidCallback? onTap,
   }) {
     _show(
+      context: context,
       message: message,
       title: title,
       theme: ToastTheme.info(),
@@ -216,6 +218,7 @@ class NiceToast {
 
   /// Display a custom toast notification with full customization
   static void custom({
+    required BuildContext context,
     required String message,
     required ToastTheme theme,
     String? title,
@@ -228,6 +231,7 @@ class NiceToast {
     VoidCallback? onTap,
   }) {
     _show(
+      context: context,
       message: message,
       title: title,
       theme: theme,
@@ -241,8 +245,9 @@ class NiceToast {
     );
   }
 
-  /// Private method to display a toast without requiring BuildContext
+  /// Private method to display a toast
   static void _show({
+    required BuildContext context,
     required String message,
     required ToastTheme theme,
     String? title,
@@ -254,29 +259,12 @@ class NiceToast {
     VoidCallback? onDismiss,
     VoidCallback? onTap,
   }) {
-    // Check if navigator is available
-    final NavigatorState? navigator = navigatorKey.currentState;
-    if (navigator == null) {
-      debugPrint('NiceToast: Navigator not found. Make sure to call NiceToast.init() and use the returned navigatorKey in your MaterialApp.');
-      return;
-    }
-
-    // Get the overlay state
-    final overlayState = navigator.overlay;
-    if (overlayState == null) {
-      debugPrint('NiceToast: Overlay not found');
-      return;
-    }
-
     // Dismiss any existing toast
     _dismiss();
 
-    // Create a TickerProvider for animations
-    final ticker = _SingleTickerProvider();
-
     // Create an animation controller for animations
     _animationController = AnimationController(
-      vsync: ticker,
+      vsync: Navigator.of(context).overlay!,
       duration: const Duration(milliseconds: 300),
     );
 
@@ -300,10 +288,8 @@ class NiceToast {
       curve: Curves.easeOutBack,
     ));
 
-    // Get screen dimensions without using BuildContext
-    final screenSize = _getScreenSize();
-
     // Create overlay entry
+    final overlayState = Overlay.of(context);
     final overlayEntry = OverlayEntry(
       builder: (BuildContext context) => _ToastOverlayWidget(
         message: message,
@@ -312,7 +298,6 @@ class NiceToast {
         position: position,
         margin: margin,
         showCloseButton: persistent,
-        screenSize: screenSize,
         onClose: () {
           _dismiss();
           if (onDismiss != null) onDismiss();
@@ -360,31 +345,9 @@ class NiceToast {
       _isVisible = false;
     }
   }
-
-  /// Get screen size without context
-  static Size _getScreenSize() {
-    final window = ui.PlatformDispatcher.instance.views.first;
-    final physicalSize = window.physicalSize;
-    final devicePixelRatio = window.devicePixelRatio;
-    return Size(
-      physicalSize.width / devicePixelRatio,
-      physicalSize.height / devicePixelRatio,
-    );
-  }
 }
 
-/// Custom TickerProvider to create animations without BuildContext
-class _SingleTickerProvider extends TickerProvider {
-  late Ticker _ticker;
-
-  @override
-  Ticker createTicker(TickerCallback onTick) {
-    _ticker = Ticker(onTick);
-    return _ticker;
-  }
-}
-
-/// Widget that renders the toast notification UI without requiring BuildContext
+/// Widget that renders the toast notification UI
 class _ToastOverlayWidget extends StatelessWidget {
   final String message;
   final String? title;
@@ -397,7 +360,6 @@ class _ToastOverlayWidget extends StatelessWidget {
   final Animation<Offset> offset;
   final VoidCallback? onTap;
   final bool dismissible;
-  final Size screenSize;
 
   const _ToastOverlayWidget({
     required this.message,
@@ -405,7 +367,6 @@ class _ToastOverlayWidget extends StatelessWidget {
     required this.theme,
     required this.position,
     required this.margin,
-    required this.screenSize,
     this.showCloseButton = false,
     this.onClose,
     required this.opacity,
@@ -416,6 +377,7 @@ class _ToastOverlayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     final double toastWidth = screenSize.width * 0.9;
 
     Widget toast = AnimatedBuilder(
