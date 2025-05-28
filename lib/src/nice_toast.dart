@@ -507,12 +507,15 @@ class _ToastOverlayWidget extends StatelessWidget {
 
     // Position the toast according to the specified position
     return Positioned(
-      top: position == ToastPosition.top ? margin : null,
+      top: position == ToastPosition.top
+          ? margin
+          : position == ToastPosition.center
+              ? (screenSize.height - 120) / 2 // Better center calculation
+              : null,
       bottom: position == ToastPosition.bottom ? margin : null,
       left: screenSize.width * 0.05,
       right: screenSize.width * 0.05,
-      // Center vertically if position is center
-      child: position == ToastPosition.center ? Center(child: toast) : toast,
+      child: toast,
     );
   }
 }

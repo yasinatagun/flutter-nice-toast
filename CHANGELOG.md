@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.2.4
+
+### Added
+- 📸 Added beautiful screenshots showcasing app interface and toast positions
+- 🎨 Updated README.md with clean screenshot presentation for pub.dev
+- 📱 Screenshots include main app interface and all three toast positions (top, center, bottom)
+
+## 0.2.3
+
+### Added
+- 📱 Beautiful screenshots showcasing all package features
+- 🍎 iOS support for example app
+- 🎨 Redesigned example app with modern UI perfect for demonstrations
+
+### Fixed
+- 🎯 Improved center positioning for toasts
+- 📱 Fixed bottom overflow issue in positions demo page
+
 ## 0.2.2
 
 ### Fixes

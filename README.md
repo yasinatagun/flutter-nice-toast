@@ -2,6 +2,16 @@
 
 A beautiful and highly customizable toast notification package for Flutter with animations and various predefined styles. Shows toasts without requiring BuildContext.
 
+## 📱 Screenshots
+
+<p align="center">
+  <img src="screenshots/app.png" alt="Flutter Nice Toast Demo" width="250"/>
+</p>
+
+| Top Position | Center Position | Bottom Position |
+|--------------|-----------------|-----------------|
+| <img src="screenshots/top.png" alt="Top Position Toast" width="250"/> | <img src="screenshots/center.png" alt="Center Position Toast" width="250"/> | <img src="screenshots/bottom.png" alt="Bottom Position Toast" width="250"/> |
+
 ## Features
 
 - 🎨 **Elegant Design**: Stylish and clean toast notifications with smooth animations
