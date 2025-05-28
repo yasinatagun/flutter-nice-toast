@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2
+
+### Fixes
+- Fixed repository links in pubspec.yaml to match actual GitHub repository name (hyphens instead of underscores)
+- Repository links on pub.dev will now work correctly
+
 ## 0.2.1
 
 ### Updates

@@ -1,9 +1,9 @@
 name: flutter_nice_toast
 description: A beautiful, customizable toast notification package for Flutter with animations and various styles.
-version: 0.2.1
-homepage: https://github.com/yasinatagun/flutter_nice_toast
-repository: https://github.com/yasinatagun/flutter_nice_toast
-issue_tracker: https://github.com/yasinatagun/flutter_nice_toast/issues
+version: 0.2.2
+homepage: https://github.com/yasinatagun/flutter-nice-toast
+repository: https://github.com/yasinatagun/flutter-nice-toast
+issue_tracker: https://github.com/yasinatagun/flutter-nice-toast/issues
 
 environment:
   sdk: '>=2.19.0 <4.0.0'
