@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.5
+
+### Fixed
+- 🖼️ Fixed screenshots not displaying on pub.dev by using proper GitHub raw URLs
+- 📱 Improved screenshot layout with HTML table format for better presentation
+- ✨ Screenshots now properly visible on pub.dev package page
+
 ## 0.2.4
 
 ### Added

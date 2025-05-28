@@ -5,12 +5,21 @@ A beautiful and highly customizable toast notification package for Flutter with 
 ## 📱 Screenshots
 
 <p align="center">
-  <img src="screenshots/app.png" alt="Flutter Nice Toast Demo" width="250"/>
+  <img src="https://github.com/yasinatagun/flutter-nice-toast/raw/main/screenshots/app.png" alt="Flutter Nice Toast Demo" width="250"/>
 </p>
 
-| Top Position | Center Position | Bottom Position |
-|--------------|-----------------|-----------------|
-| <img src="screenshots/top.png" alt="Top Position Toast" width="250"/> | <img src="screenshots/center.png" alt="Center Position Toast" width="250"/> | <img src="screenshots/bottom.png" alt="Bottom Position Toast" width="250"/> |
+<table>
+  <tr>
+    <td><img src="https://github.com/yasinatagun/flutter-nice-toast/raw/main/screenshots/top.png" alt="Top Position Toast" width="200"></td>
+    <td><img src="https://github.com/yasinatagun/flutter-nice-toast/raw/main/screenshots/center.png" alt="Center Position Toast" width="200"></td>
+    <td><img src="https://github.com/yasinatagun/flutter-nice-toast/raw/main/screenshots/bottom.png" alt="Bottom Position Toast" width="200"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Top Position</b></td>
+    <td align="center"><b>Center Position</b></td>
+    <td align="center"><b>Bottom Position</b></td>
+  </tr>
+</table>
 
 ## Features
 
